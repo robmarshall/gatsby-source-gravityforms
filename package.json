@@ -1,0 +1,30 @@
+{
+    "name": "gatsby-source-gravityforms",
+    "description": "Gatsby source plugin to add WordPress Gravity Forms nodes to your app.",
+    "version": "0.0.1",
+    "author": "Robert Marshall (https://robertmarshall.dev)",
+    "dependencies": {
+        "@babel/runtime": "^7.4.4",
+        "axios": "^0.18.0",
+        "babel-preset-gatsby-package": "^0.1.4"
+    },
+    "keywords": [
+        "gatsby",
+        "gatsby-source",
+        "gatsby-plugin",
+        "wordpress",
+        "gravityforms"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/robmarshall/gatsby-source-gravityforms.git"
+    },
+    "devDependencies": {
+        "cross-env": "^5.2.0"
+    },
+    "license": "MIT",
+    "scripts": {},
+    "peerDependencies": {
+        "gatsby": ">2.0.0-alpha"
+    }
+}
