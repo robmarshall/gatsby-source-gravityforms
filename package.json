@@ -4,6 +4,8 @@
     "version": "0.0.1",
     "author": "Robert Marshall (https://robertmarshall.dev)",
     "dependencies": {
+        "@babel/core": "^7.4.4",
+        "@babel/preset-env": "^7.4.4",
         "@babel/runtime": "^7.4.4",
         "axios": "^0.18.0",
         "babel-preset-gatsby-package": "^0.1.4"
