@@ -1,1 +1,1 @@
-# gatbsy-source-gravityforms
+# gatsby-source-gravityforms
