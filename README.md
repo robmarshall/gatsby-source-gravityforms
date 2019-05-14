@@ -9,10 +9,10 @@ module.exports = {
             resolve: 'gatsby-source-gravityforms',
             options: {
                 baseUrl: 'SITE_BASE_URL', (including HTTP)
-                api:  {
-                    consumerKey: 'GF_CONSUMER_KEY',
-                    consumerSecret: 'GF_CONSUMER_SECRET',
-                }
+                wordpress:  {
+                    user: 'USERNAME',
+                    password: 'PASSWORD',
+                },
                 basicAuth: {
                     user: 'BASIC_AUTH_USER',
                     pass: 'BASIC_AUTH_PASS',
@@ -22,3 +22,5 @@ module.exports = {
     ],
 }
 ```
+
+This plugin has been built to work with [https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api]. Install this on your WordPress site, and set up as per the instructions. This plugin allows JWT tokens to be used, and keeps things consistent.
