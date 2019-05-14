@@ -20,7 +20,12 @@ exports.sourceNodes = async (
     const routes = {
         wp: '/wp-json',
         gf: '/gf/v2',
-        allForms: '/forms',
+        forms: '/forms',
+    }
+
+    // Helper function to process forms to match with node structure
+    const processForm = form => {
+        const nodeId = createNodeId(`gravity-form-${form.id}`)
     }
 
     // These parameters are for all GF calls
@@ -29,19 +34,19 @@ exports.sourceNodes = async (
     const allFormsParams = new0AuthParameters(api.key)
 
     // Lets get all form details
-    const encodedSignature = oauthSignature.generate(
+    const allFormsEncodedSignature = oauthSignature.generate(
         'GET',
-        baseUrl + routes.wp + routes.gf + routes.allForms,
+        baseUrl + routes.wp + routes.gf + routes.forms,
         allFormsParams,
         consumerSecret
     )
 
     // Make the call, get all form details
     axios
-        .get(baseUrl + routes.wp + routes.gf + routes.allForms, {
+        .get(baseUrl + routes.wp + routes.gf + routes.forms, {
             params: {
                 ...allFormsParams,
-                oauth_signature: encodedSignature,
+                oauth_signature: allFormsEncodedSignature,
             },
         })
         .then(function(response) {
@@ -52,7 +57,44 @@ exports.sourceNodes = async (
                 Object.keys(allForms).forEach(function(key) {
                     // Lets get the details for each form
                     let currentFormID = allForms[key].id
-                    console.log(currentFormID)
+
+                    // Make a new parameters
+                    let currentFormParams = new0AuthParameters(api.key)
+
+                    // Make a new signature
+                    const currentFormEncodedSignature = oauthSignature.generate(
+                        'GET',
+                        baseUrl +
+                            routes.wp +
+                            routes.gf +
+                            routes.forms +
+                            '/' +
+                            currentFormID,
+                        currentFormParams,
+                        consumerSecret
+                    )
+
+                    axios
+                        .get(
+                            baseUrl +
+                                routes.wp +
+                                routes.gf +
+                                routes.forms +
+                                '/' +
+                                currentFormID,
+                            {
+                                params: {
+                                    ...currentFormParams,
+                                    oauth_signature: currentFormEncodedSignature,
+                                },
+                            }
+                        )
+                        .then(function(response) {
+                            console.log(response.data)
+                        })
+                        .catch(function(error) {
+                            console.log(error)
+                        })
                 })
             } else {
                 console.log('No forms seem to be made yet?')
