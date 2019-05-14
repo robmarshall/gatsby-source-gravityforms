@@ -1,6 +1,8 @@
 const axios = require('axios')
 const oauthSignature = require('oauth-signature')
-const nanoid = require('nanoid')
+
+const isObjEmpty = require('./utils/isObjEmpty.js')
+const new0AuthParameters = require('./utils/0AuthParameters.js')
 
 let activeEnv =
     process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || 'development'
@@ -21,37 +23,40 @@ exports.sourceNodes = async (
         allForms: '/forms',
     }
 
-    // Make unix timestamp
-    const timestamp = Math.round(new Date().getTime() / 1000)
-
     // These parameters are for all GF calls
     const consumerSecret = api.secret
-    const parameters = {
-        oauth_consumer_key: api.key,
-        oauth_timestamp: timestamp,
-        oauth_signature_method: 'HMAC-SHA1',
-        oauth_version: '1.0',
-        oauth_nonce: nanoid(11),
-    }
+
+    const allFormsParams = new0AuthParameters(api.key)
 
     // Lets get all form details
     const encodedSignature = oauthSignature.generate(
         'GET',
         baseUrl + routes.wp + routes.gf + routes.allForms,
-        parameters,
+        allFormsParams,
         consumerSecret
     )
 
+    // Make the call, get all form details
     axios
         .get(baseUrl + routes.wp + routes.gf + routes.allForms, {
             params: {
-                ...parameters,
+                ...allFormsParams,
                 oauth_signature: encodedSignature,
             },
         })
         .then(function(response) {
-            // First count the response. If more than 0 lets get details!
-            console.log(response.data)
+            const allForms = response.data
+
+            // If there are forms to show, lets go!
+            if (!isObjEmpty(allForms)) {
+                Object.keys(allForms).forEach(function(key) {
+                    // Lets get the details for each form
+                    let currentFormID = allForms[key].id
+                    console.log(currentFormID)
+                })
+            } else {
+                console.log('No forms seem to be made yet?')
+            }
         })
         .catch(function(error) {
             console.log(error)
