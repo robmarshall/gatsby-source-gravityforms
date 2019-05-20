@@ -4,6 +4,8 @@ const oauthSignature = require('oauth-signature')
 const isObjEmpty = require('./utils/isObjEmpty.js')
 const new0AuthParameters = require('./utils/0AuthParameters.js')
 
+const stringify = require('json-stringify-safe')
+
 let activeEnv =
     process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || 'development'
 
@@ -26,7 +28,26 @@ exports.sourceNodes = async (
     // Helper function to process forms to match with node structure
     const processForm = form => {
         const nodeId = createNodeId(`gravity-form-${form.id}`)
+        const nodeContent = stringify(form)
+        const nodeData = Object.assign({}, form, {
+            id: nodeId,
+            parent: null,
+            children: [],
+            internal: {
+                type: `GravityFormForm`,
+                content: nodeContent,
+                //contentDigest: stringify(form), // Add crypto hash here using form ? updated datetime
+            },
+        })
+        return nodeData
     }
+
+    // TODO:
+    // Get response schema, write out in file
+    // Call schema when response is got. Build nodes according to this
+    // reference https://github.com/AndreasFaust/gatsby-source-custom-api
+
+    // Split file into smaller files for easier management
 
     // These parameters are for all GF calls
     const consumerSecret = api.secret
@@ -44,6 +65,7 @@ exports.sourceNodes = async (
     // Make the call, get all form details
     axios
         .get(baseUrl + routes.wp + routes.gf + routes.forms, {
+            responseType: 'json',
             params: {
                 ...allFormsParams,
                 oauth_signature: allFormsEncodedSignature,
@@ -83,14 +105,18 @@ exports.sourceNodes = async (
                                 '/' +
                                 currentFormID,
                             {
+                                responseType: 'json',
                                 params: {
                                     ...currentFormParams,
                                     oauth_signature: currentFormEncodedSignature,
                                 },
                             }
                         )
-                        .then(function(response) {
-                            console.log(response.data)
+                        .then(function(form) {
+                            //Process the photo data to match the structure of a Gatsby node
+                            const nodeData = processForm(form)
+                            // Use Gatsby's createNode helper to create a node from the node data
+                            createNode(nodeData)
                         })
                         .catch(function(error) {
                             console.log(error)
