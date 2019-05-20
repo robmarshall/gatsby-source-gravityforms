@@ -32,9 +32,9 @@
     },
     "license": "MIT",
     "scripts": {
-        "build": "babel src --out-dir . --ignore **/__tests__",
+        "build": "babel src --out-dir .",
         "prepare": "cross-env NODE_ENV=production npm run build",
-        "watch": "babel -w src --out-dir . --ignore **/__tests__"
+        "watch": "babel -w src --out-dir"
     },
     "peerDependencies": {
         "gatsby": ">2.0.0-alpha"
