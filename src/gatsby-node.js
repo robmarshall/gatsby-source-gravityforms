@@ -1,5 +1,5 @@
 const { getFormsAndFields } = require('./utils/axios')
-
+const { processForms } = require('./utils/processForms')
 const stringify = require('json-stringify-safe')
 
 let activeEnv =
@@ -14,6 +14,10 @@ exports.sourceNodes = async (
     { actions: { createNode }, createContentDigest, createNodeId },
     { plugins, baseUrl, api, basicAuth }
 ) => {
-    let thing = await getFormsAndFields(api, baseUrl)
-    console.log(thing)
+    // Get a full object of forms and fields
+    let formsObj = await getFormsAndFields(api, baseUrl)
+
+    for (const [key, value] of Object.entries(formsObj)) {
+        createNode(processForms(createContentDigest, formsObj[key]))
+    }
 }
