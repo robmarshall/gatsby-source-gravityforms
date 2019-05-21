@@ -2,7 +2,7 @@ const axios = require('axios')
 const oauthSignature = require('oauth-signature')
 
 const { routes } = require('./routes')
-const { isArray, isObject, isObjEmpty } = require('./helpers')
+const { isObjEmpty } = require('./helpers')
 const { new0AuthParameters } = require('./0AuthParameters')
 
 // Get list of all forms from GF
