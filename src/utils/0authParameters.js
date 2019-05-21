@@ -18,4 +18,4 @@ function new0AuthParameters(consumerKey) {
     }
 }
 
-module.exports = new0AuthParameters
+module.exports = { new0AuthParameters }
