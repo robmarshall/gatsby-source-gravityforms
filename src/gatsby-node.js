@@ -1,7 +1,7 @@
 const axios = require('axios')
 const oauthSignature = require('oauth-signature')
 
-const { isObjEmpty } = require('./utils/helpers')
+const { isArray, isObject, isObjEmpty } = require('./utils/helpers')
 const new0AuthParameters = require('./utils/0AuthParameters.js')
 
 const stringify = require('json-stringify-safe')
@@ -40,6 +40,25 @@ exports.sourceNodes = async (
             },
         })
         return nodeData
+    }
+
+    const manageRawForm = formObj => {
+        Object.keys(formObj).forEach(function(key) {
+            // Check if value is an array
+            if (!isArray(formObj[key])) {
+                // Check if value is an object
+                if (!isObject(formObj[key])) {
+                    console.log('Key: ' + key)
+                    console.log('Value: ' + formObj[key])
+                } else {
+                    console.log(key + ' is an object!')
+                    // Objects do not need to be ordered in the node
+                }
+            } else {
+                console.log(key + ' is an array!')
+                // Array elements need to be ordered, or given an order key in the node
+            }
+        })
     }
 
     // TODO
@@ -114,12 +133,12 @@ exports.sourceNodes = async (
                             }
                         )
                         .then(function(form) {
-                            // //Process the photo data to match the structure of a Gatsby node
-                            const nodeData = processForm(form.data)
-                            // // Use Gatsby's createNode helper to create a node from the node data
-                            createNode(nodeData)
+                            // // //Process the photo data to match the structure of a Gatsby node
+                            // const nodeData = processForm(form.data)
+                            // // // Use Gatsby's createNode helper to create a node from the node data
+                            // createNode(nodeData)
 
-                            //console.log(form.data)
+                            manageRawForm(form.data)
                         })
                         .catch(function(error) {
                             console.log(error)
