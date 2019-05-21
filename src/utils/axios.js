@@ -1,5 +1,7 @@
 const axios = require('axios')
+const chalk = require('chalk')
 const oauthSignature = require('oauth-signature')
+const log = console.log
 
 const { routes } = require('./routes')
 const { isObjEmpty } = require('./helpers')
@@ -9,25 +11,29 @@ const { new0AuthParameters } = require('./0AuthParameters')
 async function getForms(api, baseUrl) {
     const authParams = new0AuthParameters(api.key)
 
-    const signature = oauthSignature.generate(
-        'GET',
-        baseUrl + routes.wp + routes.gf + routes.forms,
-        authParams,
-        api.secret
-    )
+    try {
+        const signature = oauthSignature.generate(
+            'GET',
+            baseUrl + routes.wp + routes.gf + routes.forms,
+            authParams,
+            api.secret
+        )
 
-    let result = await axios.get(
-        baseUrl + routes.wp + routes.gf + routes.forms,
-        {
-            responseType: 'json',
-            params: {
-                ...authParams,
-                oauth_signature: signature,
-            },
-        }
-    )
-
-    // TODO - catch errors, return error or data
+        let result = await axios.get(
+            baseUrl + routes.wp + routes.gf + routes.forms,
+            {
+                responseType: 'json',
+                params: {
+                    ...authParams,
+                    oauth_signature: signature,
+                },
+            }
+        )
+    } catch (err) {
+        apiErrorHandler(err)
+        // Kill the plugin
+        return false
+    }
 
     return result.data
 }
@@ -47,20 +53,24 @@ async function getFormFields(api, baseUrl, form) {
         api.secret
     )
 
-    let result = await axios.get(
-        baseUrl + routes.wp + routes.gf + routes.forms + '/' + form.id,
-        {
-            responseType: 'json',
-            params: {
-                ...authParams,
-                oauth_signature: signature,
-            },
-        }
-    )
+    try {
+        let result = await axios.get(
+            baseUrl + routes.wp + routes.gf + routes.forms + '/' + form.id,
+            {
+                responseType: 'json',
+                params: {
+                    ...authParams,
+                    oauth_signature: signature,
+                },
+            }
+        )
+    } catch (err) {
+        apiErrorHandler(err)
+        // Kill the plugin
+        return false
+    }
 
-    // TODO - catch errors, return error or data
-
-    result.data[apiURL] = apiURL
+    result.data['apiURL'] = apiURL
 
     return result.data
 }
@@ -83,9 +93,32 @@ async function getFormsAndFields(api, baseUrl) {
 
             formObj['form-' + currentForm.id] = form
         }
+    } else {
+        log(chalk.red('We could not find any forms. Have you made any?'))
     }
 
     return formObj
+}
+
+function apiErrorHandler(error) {
+    if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        log(chalk.red('Request was made, but there was an issue'))
+        log(error.response.data)
+        log(error.response.status)
+        log(error.response.headers)
+    } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        log(chalk.red('Request was made, but no response'))
+        log(error.request)
+    } else {
+        // Something happened in setting up the request that triggered an Error
+        log(chalk.red('Something happened setting up the request'))
+        log('Error', error.message)
+    }
 }
 
 module.exports = {
