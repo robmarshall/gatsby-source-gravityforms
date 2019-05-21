@@ -5,14 +5,15 @@
     "author": "Robert Marshall (https://robertmarshall.dev)",
     "dependencies": {
         "@babel/cli": "^7.4.4",
-        "@babel/core": "^7.4.4",
-        "@babel/preset-env": "^7.4.4",
-        "@babel/runtime": "^7.4.4",
+        "@babel/core": "^7.4.5",
+        "@babel/preset-env": "^7.4.5",
+        "@babel/runtime": "^7.4.5",
         "axios": "^0.18.0",
         "babel-preset-env": "^1.7.0",
         "babel-preset-gatsby-package": "^0.1.4",
+        "chalk": "^2.4.2",
         "json-stringify-safe": "^5.0.1",
-        "nanoid": "^2.0.2",
+        "nanoid": "^2.0.3",
         "oauth-signature": "^1.5.0"
     },
     "keywords": [
