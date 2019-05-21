@@ -36,10 +36,13 @@ async function getForms(api, baseUrl) {
 async function getFormFields(api, baseUrl, form) {
     let authParams = new0AuthParameters(api.key)
 
+    const apiURL =
+        baseUrl + routes.wp + routes.gf + routes.forms + '/' + form.id
+
     // Make a new signature
     const signature = oauthSignature.generate(
         'GET',
-        baseUrl + routes.wp + routes.gf + routes.forms + '/' + form.id,
+        apiURL,
         authParams,
         api.secret
     )
@@ -56,6 +59,8 @@ async function getFormFields(api, baseUrl, form) {
     )
 
     // TODO - catch errors, return error or data
+
+    result.data[apiURL] = apiURL
 
     return result.data
 }
