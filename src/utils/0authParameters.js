@@ -1,4 +1,4 @@
-const getCurrentTimestamp = require('./currentTimestamp.js')
+const { getCurrentTimestamp } = require('./helpers')
 const nanoid = require('nanoid')
 
 /**
