@@ -17,7 +17,11 @@ exports.sourceNodes = async (
     // Get a full object of forms and fields
     let formsObj = await getFormsAndFields(api, baseUrl)
 
-    for (const [key, value] of Object.entries(formsObj)) {
-        createNode(processForms(createContentDigest, formsObj[key]))
+    // Check to make sure we got forms. If issues occured
+    // need to stop here
+    if (formsObj) {
+        for (const [key, value] of Object.entries(formsObj)) {
+            createNode(processForms(createContentDigest, formsObj[key]))
+        }
     }
 }
