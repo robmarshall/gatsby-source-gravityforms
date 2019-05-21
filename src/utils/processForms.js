@@ -1,11 +1,14 @@
-const manageRawFormFields = formObj => {
+const { isArray, isObject } = require('./helpers')
+
+const processForms = (createContentDigest, formObj) => {
     let formFields = {
         internal: {
             contentDigest: createContentDigest(formObj),
+            type: 'GF__Form',
         },
     }
 
-    Object.keys(formObj).forEach(function(key) {
+    for (const [key, value] of Object.entries(formObj)) {
         // Check if value is an array
         if (!isArray(formObj[key])) {
             formFields[key] = formObj[key]
@@ -22,7 +25,13 @@ const manageRawFormFields = formObj => {
             //console.log(key + ' is an array!')
             // Array elements need to be ordered, or given an order key in the node
         }
-    })
+    }
+
+    formFields.id = `gravity-form-${formFields.id}`
 
     return formFields
+}
+
+module.exports = {
+    processForms,
 }
