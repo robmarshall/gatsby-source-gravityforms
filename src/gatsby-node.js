@@ -1,7 +1,7 @@
 const axios = require('axios')
 const oauthSignature = require('oauth-signature')
 
-const isObjEmpty = require('./utils/isObjEmpty.js')
+const { isObjEmpty } = require('./utils/helpers')
 const new0AuthParameters = require('./utils/0AuthParameters.js')
 
 const stringify = require('json-stringify-safe')
