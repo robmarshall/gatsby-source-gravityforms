@@ -81,30 +81,34 @@ async function getFormsAndFields(api, baseUrl) {
     // First get forms in list
     let allForms = await getForms(api, baseUrl)
 
-    if (!isObjEmpty(allForms)) {
-        for (const [key, value] of Object.entries(allForms)) {
-            // Clone form object
-            let currentForm = { ...allForms[key] }
+    // If there are forms to move with
+    if (allForms) {
+        if (!isObjEmpty(allForms)) {
+            for (const [key, value] of Object.entries(allForms)) {
+                // Clone form object
+                let currentForm = { ...allForms[key] }
 
-            // remove unneeded key
-            delete currentForm.entries
+                // remove unneeded key
+                delete currentForm.entries
 
-            let form = await getFormFields(api, baseUrl, currentForm)
+                let form = await getFormFields(api, baseUrl, currentForm)
 
-            formObj['form-' + currentForm.id] = form
+                formObj['form-' + currentForm.id] = form
+            }
+        } else {
+            log(chalk.bgRed('We could not find any forms. Have you made any?'))
         }
-    } else {
-        log(chalk.red('We could not find any forms. Have you made any?'))
-    }
 
-    return formObj
+        return formObj
+    }
+    return false
 }
 
 function apiErrorHandler(error) {
     if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-        log(chalk.red('Request was made, but there was an issue'))
+        log(chalk.bgRed('Request was made, but there was an issue'))
         log(error.response.data)
         log(error.response.status)
         log(error.response.headers)
@@ -112,11 +116,11 @@ function apiErrorHandler(error) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
         // http.ClientRequest in node.js
-        log(chalk.red('Request was made, but no response'))
+        log(chalk.bgRed('Request was made, but no response'))
         log(error.request)
     } else {
         // Something happened in setting up the request that triggered an Error
-        log(chalk.red('Something happened setting up the request'))
+        log(chalk.bgRed('Something happened setting up the request'))
         log('Error', error.message)
     }
 }
