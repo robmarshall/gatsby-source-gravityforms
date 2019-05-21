@@ -28,7 +28,7 @@ exports.sourceNodes = async (
     // Helper function to process forms to match with node structure
     const processForm = form => {
         const nodeId = createNodeId(`gravity-form-${form.id}`)
-        const nodeContent = stringify(form)
+        const nodeContent = stringify(form.title)
         const nodeData = Object.assign({}, form, {
             id: nodeId,
             parent: null,
@@ -42,10 +42,11 @@ exports.sourceNodes = async (
         return nodeData
     }
 
-    // TODO:
-    // Get response schema, write out in file
-    // Call schema when response is got. Build nodes according to this
-    // reference https://github.com/AndreasFaust/gatsby-source-custom-api
+    // TODO
+    // Loop through form objects
+    // Add to new object
+    // If find an array of objects, create child (this will become a new node)
+    // Add these children nodes to children array
 
     // Split file into smaller files for easier management
 
@@ -113,10 +114,12 @@ exports.sourceNodes = async (
                             }
                         )
                         .then(function(form) {
-                            //Process the photo data to match the structure of a Gatsby node
-                            const nodeData = processForm(form)
-                            // Use Gatsby's createNode helper to create a node from the node data
+                            // //Process the photo data to match the structure of a Gatsby node
+                            const nodeData = processForm(form.data)
+                            // // Use Gatsby's createNode helper to create a node from the node data
                             createNode(nodeData)
+
+                            //console.log(form.data)
                         })
                         .catch(function(error) {
                             console.log(error)
