@@ -37,6 +37,6 @@
         "watch": "babel -w src --out-dir ."
     },
     "peerDependencies": {
-        "gatsby": ">2.0.0-alpha"
+        "gatsby": ">2.0.15"
     }
 }
