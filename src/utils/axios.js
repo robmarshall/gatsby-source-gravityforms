@@ -1,15 +1,20 @@
 const axios = require('axios')
 const chalk = require('chalk')
 const oauthSignature = require('oauth-signature')
-const log = console.log
 
 const { routes } = require('./routes')
 const { isObjEmpty } = require('./helpers')
 const { new0AuthParameters } = require('./0AuthParameters')
 
+const log = console.log
+
 // Get list of all forms from GF
 async function getForms(api, baseUrl) {
+    log(chalk.black.bgWhite('Fetching form ids'))
+
     const authParams = new0AuthParameters(api.key)
+
+    let result
 
     try {
         const signature = oauthSignature.generate(
@@ -19,7 +24,7 @@ async function getForms(api, baseUrl) {
             api.secret
         )
 
-        let result = await axios.get(
+        result = await axios.get(
             baseUrl + routes.wp + routes.gf + routes.forms,
             {
                 responseType: 'json',
@@ -40,7 +45,11 @@ async function getForms(api, baseUrl) {
 
 // Get form fields from GF
 async function getFormFields(api, baseUrl, form) {
+    log(chalk.black.bgWhite(`Fetching fields for form ${form.id}`))
+
     let authParams = new0AuthParameters(api.key)
+
+    let result
 
     const apiURL =
         baseUrl + routes.wp + routes.gf + routes.forms + '/' + form.id
@@ -54,7 +63,7 @@ async function getFormFields(api, baseUrl, form) {
     )
 
     try {
-        let result = await axios.get(
+        result = await axios.get(
             baseUrl + routes.wp + routes.gf + routes.forms + '/' + form.id,
             {
                 responseType: 'json',
