@@ -1,6 +1,9 @@
+const chalk = require('chalk')
+
 const { getFormsAndFields } = require('./utils/axios')
 const { processForms } = require('./utils/processForms')
-const stringify = require('json-stringify-safe')
+
+const log = console.log
 
 let activeEnv =
     process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || 'development'
@@ -14,14 +17,21 @@ exports.sourceNodes = async (
     { actions: { createNode }, createContentDigest, createNodeId },
     { plugins, baseUrl, api, basicAuth }
 ) => {
+    log(chalk.black.bgWhite('Starting Gravity Forms Source plugin'))
+
     // Get a full object of forms and fields
     let formsObj = await getFormsAndFields(api, baseUrl)
 
     // Check to make sure we got forms. If issues occured
     // need to stop here
     if (formsObj) {
+        log(chalk.black.bgWhite('Processing forms'))
+
         for (const [key, value] of Object.entries(formsObj)) {
+            console.log(processForms(createContentDigest, formsObj[key]))
             createNode(processForms(createContentDigest, formsObj[key]))
         }
+
+        log(chalk.black.bgWhite('Completed Gravity Forms Source plugin'))
     }
 }
