@@ -30,10 +30,16 @@ function isObjEmpty(obj) {
     return true
 }
 
+function isBool(val) {
+    if (typeof variable === 'boolean') return true
+    return false
+}
+
 module.exports = {
     flattenArray,
     getCurrentTimestamp,
     isArray,
+    isBool,
     isObject,
     isObjEmpty,
 }
