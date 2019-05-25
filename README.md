@@ -11,8 +11,6 @@ It uses 0Auth 1.0a Authentication for a higher level of security.
 yarn add gatsby-source-gravityforms
 ```
 
-## Set The Config
-
 In `gatsby-config.js`:
 
 ```js
