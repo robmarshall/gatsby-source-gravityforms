@@ -14,7 +14,7 @@ module.exports = {
         {
             resolve: 'gatsby-source-gravityforms',
             options: {
-                baseUrl: 'SITE_BASE_URL', (including HTTP)
+                baseUrl: 'SITE_BASE_URL', (including HTTPS)
                 api: {
                   key: "CONSUMER_KEY",
                   secret: "CONSUMER_SECRET",
