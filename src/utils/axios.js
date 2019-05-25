@@ -79,7 +79,7 @@ async function getFormFields(api, baseUrl, form) {
         return false
     }
 
-    result.data['slug'] = slugify(result.title)
+    result.data['slug'] = slugify(form.title)
     result.data['apiURL'] = apiURL
 
     return result.data
