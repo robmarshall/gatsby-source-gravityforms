@@ -2,3 +2,5 @@
 /*.js
 !index.js
 /node_modules/
+.env*
+/utils
