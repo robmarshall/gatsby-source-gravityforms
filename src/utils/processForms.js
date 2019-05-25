@@ -1,4 +1,4 @@
-const { isArray, isObject } = require('./helpers')
+const { isObject } = require('./helpers')
 const { fixType } = require('./fixType')
 
 /**
@@ -38,14 +38,11 @@ const processForms = (
 
     // Ignore fields sets fields to skip. This could be due to
     // sensitive info or not needed on the frontend
-    // We need to ensure the ignore fields are only an array.
-    // If it is anything else, it will break the loop. If it
-    // is not an array, empty!
 
     // TODO: Use an object instead of an array. But array was
     // easier for now.
 
-    ignoreFields = isArray(ignoreFields) ? ignoreFields : null
+    ignoreFields = Array.isArray(ignoreFields) ? ignoreFields : null
 
     // Loop through the form fields. Check we want to show all
     // fields, ensure fields are formatted correctly,
@@ -53,31 +50,16 @@ const processForms = (
 
     for (const [key, value] of Object.entries(formObj)) {
         if (!ignoreFields.includes(key)) {
-            // If the value is an object, add it right away.
-            // No changes are needed (yet).
-            //
-            // TODO: Check if there are arrays within the object
-
-            if (!isArray(formObj[key])) {
-                newFormObj[key] = formObj[key]
+            // Gatsby has saved 'fields' for its own use
+            // so we cannot use this key.
+            if (key == 'fields') {
+                // Loop through all fields
+                formObj[key].forEach(function(arr, i) {
+                    formObj[key][i] = fixType(arr)
+                })
+                newFormObj['formFields'] = formObj[key]
             } else {
-                let newContent = {}
-                let arrayCount = 0
-
-                newContent = formObj[key]
-
-                // Gatsby has saved 'fields' for its own use
-                // so we cannot use this key.
-                if (key == 'fields') {
-                    // Loop through all fields
-                    newContent.forEach(function(arr, i) {
-                        newContent[i] = fixType(arr)
-                    })
-
-                    newFormObj['formFields'] = newContent
-                } else {
-                    newFormObj[key] = newContent
-                }
+                newFormObj[key] = formObj[key]
             }
         }
     }
