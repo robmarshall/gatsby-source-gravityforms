@@ -4,7 +4,12 @@ This plugin connects to a WordPress Gravity Forms install. It finds all active f
 
 It uses 0Auth 1.0a Authentication for a higher level of security.
 
-## Set The Config
+## Installation
+
+```js
+# Install the plugin
+yarn add gatsby-source-gravityforms
+```
 
 In `gatsby-config.js`:
 
@@ -16,12 +21,8 @@ module.exports = {
             options: {
                 baseUrl: 'SITE_BASE_URL', (including HTTPS)
                 api: {
-                  key: "CONSUMER_KEY",
-                  secret: "CONSUMER_SECRET",
-                },
-                basicAuth: {
-                    user: 'BASIC_AUTH_USER',
-                    pass: 'BASIC_AUTH_PASS',
+                  key: 'CONSUMER_KEY',
+                  secret: 'CONSUMER_SECRET',
                 },
                 ignoreFields :[
                     // Top level fields within the Gravity Forms return
