@@ -21,12 +21,8 @@ module.exports = {
             options: {
                 baseUrl: 'SITE_BASE_URL', (including HTTPS)
                 api: {
-                  key: "CONSUMER_KEY",
-                  secret: "CONSUMER_SECRET",
-                },
-                basicAuth: {
-                    user: 'BASIC_AUTH_USER',
-                    pass: 'BASIC_AUTH_PASS',
+                  key: 'CONSUMER_KEY',
+                  secret: 'CONSUMER_SECRET',
                 },
                 ignoreFields :[
                     // Top level fields within the Gravity Forms return
