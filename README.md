@@ -4,6 +4,13 @@ This plugin connects to a WordPress Gravity Forms install. It finds all active f
 
 It uses 0Auth 1.0a Authentication for a higher level of security.
 
+## Installation
+
+```js
+# Install the plugin
+yarn add gatsby-source-gravityforms
+```
+
 ## Set The Config
 
 In `gatsby-config.js`:
