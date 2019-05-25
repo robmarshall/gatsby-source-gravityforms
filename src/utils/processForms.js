@@ -59,13 +59,13 @@ const processForms = (createContentDigest, formObj, ignoreFields) => {
 
                 formObj[key].forEach(arr => {
                     // Today arrays do not start at 0
-                    // Because we are turning these to objects
+                    // Because we are turning these into objects
                     arrayCount = arrayCount + 1
                     newContent[arrayCount] = arr
                 })
 
                 // Gatsby has saved 'fields' for its own use
-                // We need to rename Gravity Form fields to something new
+                // so we cannot use this key.
                 if (key == 'fields') {
                     newFormObj['formFields'] = newContent
 
