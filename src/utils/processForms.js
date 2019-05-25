@@ -16,11 +16,18 @@ const processForms = (createContentDigest, formObj, ignoreFields) => {
     // the same.
 
     let newFormObj = {
+        id: `gravity-form-${formObj.id}`,
         internal: {
             contentDigest: createContentDigest(formObj),
             type: 'GF__Form',
         },
     }
+
+    // Delete the original raw object id, as in the loop below
+    // all keys are pulled into the new object. No need to
+    // process it.
+
+    delete formObj.id
 
     // Ignore fields sets fields to skip. This could be due to
     // sensitive info or not needed on the frontend
@@ -36,7 +43,6 @@ const processForms = (createContentDigest, formObj, ignoreFields) => {
     // Loop through the form fields. Check we want to show all
     // fields, ensure fields are formatted correctly,
     // updated fields that are called protected names (e.g. fields)
-    // Finally, add a Gatsby ID
 
     for (const [key, value] of Object.entries(formObj)) {
         if (!ignoreFields.includes(key)) {
@@ -73,8 +79,6 @@ const processForms = (createContentDigest, formObj, ignoreFields) => {
             }
         }
     }
-
-    newFormObj.id = `gravity-form-${newFormObj.id}`
 
     return newFormObj
 }
