@@ -1,22 +1,29 @@
 const { isArray, isObject } = require('./helpers')
+const { fixType } = require('./fixType')
 
 /**
  * Take raw Gravity Forms data and turn into usable
  * Gatsby consumable objects.
- * @param  function     createContentDigest Gatsby helper function
+ * @param  function     createContentDigest Gatsby helper function to make digest
+ * @param  function     createNodeID        Gatsby helper function to make ID
  * @param  object       formObj             Raw Gravity Forms form info
  * @param  array        ignoreFields        Array of top level fields to ignore
  * @return object                           Processed form data
  */
 
-const processForms = (createContentDigest, formObj, ignoreFields) => {
+const processForms = (
+    createContentDigest,
+    createNodeID,
+    formObj,
+    ignoreFields
+) => {
     // Add the Gatsby internal information.
     // contentDigest tracks any changes and lets Gatsby know if
     // the data needs to be rerendered, or is everything is
     // the same.
 
     let newFormObj = {
-        id: `gravity-form-${formObj.id}`,
+        id: createNodeID(`gravity-form-${formObj.id.toString()}`),
         internal: {
             contentDigest: createContentDigest(formObj),
             type: 'GF__Form',
@@ -57,22 +64,17 @@ const processForms = (createContentDigest, formObj, ignoreFields) => {
                 let newContent = {}
                 let arrayCount = 0
 
-                formObj[key].forEach(arr => {
-                    // Today arrays do not start at 0
-                    // Because we are turning these into objects
-                    arrayCount = arrayCount + 1
-                    newContent[arrayCount] = arr
-                })
+                newContent = formObj[key]
 
                 // Gatsby has saved 'fields' for its own use
                 // so we cannot use this key.
                 if (key == 'fields') {
-                    newFormObj['formFields'] = newContent
+                    // Loop through all fields
+                    newContent.forEach(function(arr, i) {
+                        newContent[i] = fixType(arr)
+                    })
 
-                    // @TODO
-                    // Need to create processor that fixes
-                    // type issues
-                    // and opens up choices into objects
+                    newFormObj['formFields'] = newContent
                 } else {
                     newFormObj[key] = newContent
                 }
