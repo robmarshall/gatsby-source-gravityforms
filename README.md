@@ -39,6 +39,43 @@ module.exports = {
 
 ## How To Query
 
+A very simple data set can be extracted from GraphQL using the following query:
+
+```js
+{
+  allGfForm {
+    edges {
+      node {
+        slug
+        apiURL
+        formFields {
+          type
+          choices
+        }
+        button {
+          type
+          text
+        }
+        confirmations {
+          _5cda6a4b2e31d {
+            id
+            message
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+This will return each form set up in Gravity Forms. Tt will include:
+
+-   Slug of the form title
+-   The backend form REST API URL
+-   All form fields
+-   Button info
+-   Confirmation info
+
 ## Gravity Forms REST API Settings
 
 Step by step - How to connect
