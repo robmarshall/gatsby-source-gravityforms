@@ -37,6 +37,16 @@ module.exports = {
 }
 ```
 
+## Gravity Forms REST API Settings
+
+### Step by step - How to connect
+
+To use the Gravity Forms REST API, it needs to be enabled within the Gravity Forms Settings. This is found under "General Settings".
+
+Once "Enable access to the API" has been checked, Gravity Forms will give you the ability to create API keys. These two keys (consumer & secret) are the keys required in the gatsby-config.js file as key & secret.
+
+It is recommended to create one API key for use with this Source Plugin, set to Read access only. Then if Write access is required to submit the forms, create a separate one.
+
 ## How To Query
 
 A very simple data set can be extracted from GraphQL using the following query:
@@ -77,13 +87,3 @@ This will return each form set up in Gravity Forms. It will include:
 -   Confirmation info (your confirmation field is likely to be different)
 
 Currently "choices" in formFields is stringified and will need to be parsed when extracted. This is due to Gatsby seemingly not seeing this many level deep. I am currently working on a solution for this.
-
-## Gravity Forms REST API Settings
-
-### Step by step - How to connect
-
-To use the Gravity Forms REST API, it needs to be enabled within the Gravity Forms Settings. This is found under "General Settings".
-
-Once "Enable access to the API" has been checked, Gravity Forms will give you the ability to create API keys. These two keys (consumer & secret) are the keys required in the gatsby-config.js file as key & secret.
-
-It is recommended to create one API key for use with this Source Plugin, set to Read access only. Then if Write access is required to submit the forms, create a separate one.
