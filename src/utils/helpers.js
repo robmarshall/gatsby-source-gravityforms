@@ -8,12 +8,6 @@ function getCurrentTimestamp() {
     return Math.round(new Date().getTime() / 1000)
 }
 
-// Check if element is array
-function isArray(element) {
-    if (!element) return false
-    return element.constructor === Array
-}
-
 // Check if element is an object
 function isObject(element) {
     if (!element) return false
@@ -35,11 +29,22 @@ function isBool(val) {
     return false
 }
 
+function slugify(text) {
+    return text
+        .toString()
+        .toLowerCase()
+        .replace(/\s+/g, '-') // Replace spaces with -
+        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+        .replace(/\-\-+/g, '-') // Replace multiple - with single -
+        .replace(/^-+/, '') // Trim - from start of text
+        .replace(/-+$/, '') // Trim - from end of text
+}
+
 module.exports = {
     flattenArray,
     getCurrentTimestamp,
-    isArray,
     isBool,
     isObject,
     isObjEmpty,
+    slugify,
 }

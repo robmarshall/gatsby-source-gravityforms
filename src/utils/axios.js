@@ -3,7 +3,7 @@ const chalk = require('chalk')
 const oauthSignature = require('oauth-signature')
 
 const { routes } = require('./routes')
-const { isObjEmpty } = require('./helpers')
+const { isObjEmpty, slugify } = require('./helpers')
 const { new0AuthParameters } = require('./0AuthParameters')
 
 const log = console.log
@@ -79,6 +79,7 @@ async function getFormFields(api, baseUrl, form) {
         return false
     }
 
+    result.data['slug'] = slugify(result.title)
     result.data['apiURL'] = apiURL
 
     return result.data
