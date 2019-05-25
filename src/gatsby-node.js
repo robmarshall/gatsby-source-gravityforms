@@ -15,7 +15,7 @@ if (activeEnv == 'development') {
 
 exports.sourceNodes = async (
     { actions: { createNode }, createContentDigest, createNodeId },
-    { plugins, baseUrl, api, basicAuth }
+    { plugins, baseUrl, api, basicAuth, ignoreFields = ['notifications'] }
 ) => {
     log(chalk.black.bgWhite('Starting Gravity Forms Source plugin'))
 
@@ -28,8 +28,12 @@ exports.sourceNodes = async (
         log(chalk.black.bgWhite('Processing forms'))
 
         for (const [key, value] of Object.entries(formsObj)) {
-            console.log(processForms(createContentDigest, formsObj[key]))
-            createNode(processForms(createContentDigest, formsObj[key]))
+            console.log(
+                processForms(createContentDigest, formsObj[key], ignoreFields)
+            )
+            createNode(
+                processForms(createContentDigest, formsObj[key], ignoreFields)
+            )
         }
 
         log(chalk.black.bgWhite('Completed Gravity Forms Source plugin'))
