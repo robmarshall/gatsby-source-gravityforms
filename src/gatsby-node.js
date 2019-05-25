@@ -28,14 +28,6 @@ exports.sourceNodes = async (
         log(chalk.black.bgWhite('Processing forms'))
 
         for (const [key, value] of Object.entries(formsObj)) {
-            // console.log(
-            //     processForms(
-            //         createContentDigest,
-            //         createNodeId,
-            //         formsObj[key],
-            //         ignoreFields
-            //     )
-            //)
             createNode(
                 processForms(
                     createContentDigest,
