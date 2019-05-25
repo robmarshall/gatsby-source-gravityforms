@@ -68,16 +68,22 @@ A very simple data set can be extracted from GraphQL using the following query:
 }
 ```
 
-This will return each form set up in Gravity Forms. Tt will include:
+This will return each form set up in Gravity Forms. It will include:
 
 -   Slug of the form title
 -   The backend form REST API URL
 -   All form fields
 -   Button info
--   Confirmation info
+-   Confirmation info (your confirmation field is likely to be different)
+
+Currently "choices" in formFields is stringified and will need to be parsed when extracted. This is due to Gatsby seemingly not seeing this many level deep. I am currently working on a solution for this.
 
 ## Gravity Forms REST API Settings
 
-Step by step - How to connect
+### Step by step - How to connect
 
-Recommendations on only setting to read? If you are going to use the API to add data, use a separate API key.
+To use the Gravity Forms REST API, it needs to be enabled within the Gravity Forms Settings. This is found under "General Settings".
+
+Once "Enable access to the API" has been checked, Gravity Forms will give you the ability to create API keys. These two keys (consumer & secret) are the keys required in the gatsby-config.js file as key & secret.
+
+It is recommended to create one API key for use with this Source Plugin, set to Read access only. Then if Write access is required to submit the forms, create a separate one.
