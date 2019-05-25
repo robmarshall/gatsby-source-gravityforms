@@ -10,9 +10,7 @@ function getCurrentTimestamp() {
 
 // Check if element is an object
 function isObject(element) {
-    if (!element) return false
     if (typeof element !== 'object') return false
-    if (element instanceof Array) return false
     return true
 }
 
