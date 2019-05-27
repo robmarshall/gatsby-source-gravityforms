@@ -15,7 +15,16 @@ if (activeEnv == 'development') {
 
 exports.sourceNodes = async (
     { actions: { createNode }, createContentDigest, createNodeId },
-    { plugins, baseUrl, api, auth, ignoreFields = ['notifications'] }
+    {
+        plugins,
+        baseUrl,
+        api,
+        auth = {
+            username: '',
+            password: '',
+        },
+        ignoreFields = ['notifications'],
+    }
 ) => {
     log(chalk.black.bgWhite('Starting Gravity Forms Source plugin'))
 
