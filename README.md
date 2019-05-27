@@ -20,13 +20,15 @@ module.exports = {
             resolve: 'gatsby-source-gravityforms',
             options: {
                 baseUrl: 'SITE_BASE_URL', (including HTTPS)
+                // Gravity Forms API
                 api: {
                   key: 'CONSUMER_KEY',
                   secret: 'CONSUMER_SECRET',
                 },
-                basicAuth: {
-                    user: 'USERNAME',
-                    pass: 'PASSWORD',
+                // Basic Auth
+                auth: {
+                    username: 'USERNAME',
+                    password: 'PASSWORD',
                 },
                 ignoreFields :[
                     // Top level fields within the Gravity Forms return

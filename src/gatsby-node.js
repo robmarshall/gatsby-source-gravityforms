@@ -15,12 +15,12 @@ if (activeEnv == 'development') {
 
 exports.sourceNodes = async (
     { actions: { createNode }, createContentDigest, createNodeId },
-    { plugins, baseUrl, api, basicAuth, ignoreFields = ['notifications'] }
+    { plugins, baseUrl, api, auth, ignoreFields = ['notifications'] }
 ) => {
     log(chalk.black.bgWhite('Starting Gravity Forms Source plugin'))
 
     // Get a full object of forms and fields
-    let formsObj = await getFormsAndFields(api, baseUrl)
+    let formsObj = await getFormsAndFields(auth, api, baseUrl)
 
     // Check to make sure we got forms. If issues occured
     // need to stop here
