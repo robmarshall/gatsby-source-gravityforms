@@ -24,6 +24,10 @@ module.exports = {
                   key: 'CONSUMER_KEY',
                   secret: 'CONSUMER_SECRET',
                 },
+                basicAuth: {
+                    user: 'USERNAME',
+                    pass: 'PASSWORD',
+                },
                 ignoreFields :[
                     // Top level fields within the Gravity Forms return
                     // to ignore.
