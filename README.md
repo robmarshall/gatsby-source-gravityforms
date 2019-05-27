@@ -54,6 +54,10 @@ Once "Enable access to the API" has been checked, Gravity Forms will give you th
 
 It is recommended to create one API key for use with this Source Plugin, set to Read access only. Then if Write access is required to submit the forms, create a separate one.
 
+### Basic Auth
+
+Your backend API may be set up with Basic Auth in place. If so, add your username and password to the "auth" section in the gatsby-config.js. Shown above in Installation.
+
 ## How To Query
 
 A very simple data set can be extracted from GraphQL using the following query:
