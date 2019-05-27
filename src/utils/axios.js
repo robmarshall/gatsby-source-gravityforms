@@ -28,13 +28,16 @@ async function getForms(auth, api, baseUrl) {
             baseUrl + routes.wp + routes.gf + routes.forms,
             {
                 responseType: 'json',
-                auth
+                withCredentials: true,
+                auth,
                 params: {
                     ...authParams,
                     oauth_signature: signature,
                 },
             }
         )
+
+        console.log(result)
     } catch (err) {
         apiErrorHandler(err)
         // Kill the plugin
@@ -68,7 +71,7 @@ async function getFormFields(auth, api, baseUrl, form) {
             baseUrl + routes.wp + routes.gf + routes.forms + '/' + form.id,
             {
                 responseType: 'json',
-                auth
+                auth,
                 params: {
                     ...authParams,
                     oauth_signature: signature,
