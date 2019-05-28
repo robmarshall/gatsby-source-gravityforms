@@ -56,7 +56,7 @@ It is recommended to create one API key for use with this Source Plugin, set to 
 
 ### Basic Auth
 
-Your backend API may be set up with Basic Auth in place. If so, add your username and password to the "auth" section in the gatsby-config.js. Shown above in Installation.
+Your backend API may be set up with Basic Auth in place. This is added to the begining of the URL so 0auth1 can also run in tandem. Setup is shown above in Installation.
 
 ## How To Query
 
