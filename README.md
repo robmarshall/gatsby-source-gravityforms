@@ -79,10 +79,8 @@ A very simple data set can be extracted from GraphQL using the following query:
           text
         }
         confirmations {
-          _5cda6a4b2e31d {
-            id
-            message
-          }
+          id
+          message
         }
       }
     }
