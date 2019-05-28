@@ -42,6 +42,17 @@ exports.sourceNodes = async (
     if (formsObj) {
         log(chalk.black.bgWhite('Processing forms'))
 
+        // for (const [key, value] of Object.entries(formsObj)) {
+        //     log(
+        //         processForms(
+        //             createContentDigest,
+        //             createNodeId,
+        //             formsObj[key],
+        //             ignoreFields
+        //         )
+        //     )
+        // }
+
         for (const [key, value] of Object.entries(formsObj)) {
             createNode(
                 processForms(

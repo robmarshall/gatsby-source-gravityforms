@@ -19,25 +19,26 @@ module.exports = {
         {
             resolve: 'gatsby-source-gravityforms',
             options: {
-                baseUrl: 'SITE_BASE_URL', (including HTTPS)
+                // Base URL needs to include protocol (http/https)
+                baseUrl: 'SITE_BASE_URL',
                 // Gravity Forms API
                 api: {
-                  key: 'CONSUMER_KEY',
-                  secret: 'CONSUMER_SECRET',
+                    key: 'CONSUMER_KEY',
+                    secret: 'CONSUMER_SECRET',
                 },
                 // Basic Auth
                 basicAuth: {
                     username: 'USERNAME',
                     password: 'PASSWORD',
                 },
-                ignoreFields :[
+                ignoreFields: [
                     // Top level fields within the Gravity Forms return
                     // to ignore.
                     // Default ignore is 'notifications'. To keep this
                     // as set, remove the ignoreFields setting from here.
                     // If adding more fields, you will need to include
                     // notifications to ensure it is ignored.
-                ]
+                ],
             },
         },
     ],
@@ -78,10 +79,8 @@ A very simple data set can be extracted from GraphQL using the following query:
           text
         }
         confirmations {
-          _5cda6a4b2e31d {
-            id
-            message
-          }
+          id
+          message
         }
       }
     }
@@ -95,6 +94,6 @@ This will return each form set up in Gravity Forms. It will include:
 -   The backend form REST API URL
 -   All form fields
 -   Button info
--   Confirmation info (your confirmation field is likely to be different)
+-   Confirmation info
 
 Currently "choices" in formFields is stringified and will need to be parsed when extracted. This is due to Gatsby seemingly not seeing this many level deep.
