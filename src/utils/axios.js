@@ -9,7 +9,7 @@ const { new0AuthParameters } = require('./0AuthParameters')
 const log = console.log
 
 // Get list of all forms from GF
-async function getForms(auth, api, baseUrl) {
+async function getForms(api, baseUrl) {
     log(chalk.black.bgWhite('Fetching form ids'))
 
     const authParams = new0AuthParameters(api.key)
@@ -28,8 +28,6 @@ async function getForms(auth, api, baseUrl) {
             baseUrl + routes.wp + routes.gf + routes.forms,
             {
                 responseType: 'json',
-                withCredentials: true,
-                auth,
                 params: {
                     ...authParams,
                     oauth_signature: signature,
@@ -46,7 +44,7 @@ async function getForms(auth, api, baseUrl) {
 }
 
 // Get form fields from GF
-async function getFormFields(auth, api, baseUrl, form) {
+async function getFormFields(api, baseUrl, form) {
     log(chalk.black.bgWhite(`Fetching fields for form ${form.id}`))
 
     let authParams = new0AuthParameters(api.key)
@@ -69,7 +67,6 @@ async function getFormFields(auth, api, baseUrl, form) {
             baseUrl + routes.wp + routes.gf + routes.forms + '/' + form.id,
             {
                 responseType: 'json',
-                auth,
                 params: {
                     ...authParams,
                     oauth_signature: signature,
@@ -88,11 +85,11 @@ async function getFormFields(auth, api, baseUrl, form) {
     return result.data
 }
 
-async function getFormsAndFields(auth, api, baseUrl) {
+async function getFormsAndFields(basicAuth, api, baseUrl) {
     let formObj = {}
 
     // First get forms in list
-    let allForms = await getForms(auth, api, baseUrl)
+    let allForms = await getForms(api, baseUrl)
 
     // If there are forms to move with
     if (allForms) {
@@ -104,7 +101,7 @@ async function getFormsAndFields(auth, api, baseUrl) {
                 // remove unneeded key
                 delete currentForm.entries
 
-                let form = await getFormFields(auth, api, baseUrl, currentForm)
+                let form = await getFormFields(api, baseUrl, currentForm)
 
                 formObj['form-' + currentForm.id] = form
             }
