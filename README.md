@@ -19,25 +19,26 @@ module.exports = {
         {
             resolve: 'gatsby-source-gravityforms',
             options: {
-                baseUrl: 'SITE_BASE_URL', (including HTTPS)
+                // Base URL needs to include protocol (http/https)
+                baseUrl: 'SITE_BASE_URL',
                 // Gravity Forms API
                 api: {
-                  key: 'CONSUMER_KEY',
-                  secret: 'CONSUMER_SECRET',
+                    key: 'CONSUMER_KEY',
+                    secret: 'CONSUMER_SECRET',
                 },
                 // Basic Auth
                 basicAuth: {
                     username: 'USERNAME',
                     password: 'PASSWORD',
                 },
-                ignoreFields :[
+                ignoreFields: [
                     // Top level fields within the Gravity Forms return
                     // to ignore.
                     // Default ignore is 'notifications'. To keep this
                     // as set, remove the ignoreFields setting from here.
                     // If adding more fields, you will need to include
                     // notifications to ensure it is ignored.
-                ]
+                ],
             },
         },
     ],
