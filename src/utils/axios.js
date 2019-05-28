@@ -36,8 +36,6 @@ async function getForms(auth, api, baseUrl) {
                 },
             }
         )
-
-        console.log(result)
     } catch (err) {
         apiErrorHandler(err)
         // Kill the plugin
