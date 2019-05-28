@@ -26,7 +26,7 @@ module.exports = {
                   secret: 'CONSUMER_SECRET',
                 },
                 // Basic Auth
-                auth: {
+                basicAuth: {
                     username: 'USERNAME',
                     password: 'PASSWORD',
                 },
