@@ -94,6 +94,6 @@ This will return each form set up in Gravity Forms. It will include:
 -   The backend form REST API URL
 -   All form fields
 -   Button info
--   Confirmation info (your confirmation field is likely to be different)
+-   Confirmation info
 
 Currently "choices" in formFields is stringified and will need to be parsed when extracted. This is due to Gatsby seemingly not seeing this many level deep.
