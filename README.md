@@ -14,7 +14,30 @@ yarn add gatsby-source-gravityforms
 npm i gatsby-source-gravityforms
 ```
 
-In `gatsby-config.js`:
+Add to `gatsby-config.js`:
+
+### Default Setup
+
+```js
+module.exports = {
+    plugins: [
+        {
+            resolve: 'gatsby-source-gravityforms',
+            options: {
+                // Base URL needs to include protocol (http/https)
+                baseUrl: 'SITE_BASE_URL',
+                // Gravity Forms API
+                api: {
+                    key: 'CONSUMER_KEY',
+                    secret: 'CONSUMER_SECRET',
+                },
+            },
+        },
+    ],
+}
+```
+
+### All Options
 
 ```js
 module.exports = {
