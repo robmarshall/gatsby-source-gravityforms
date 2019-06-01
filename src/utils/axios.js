@@ -85,7 +85,7 @@ async function getFormFields(api, baseUrl, form) {
     return result.data
 }
 
-async function getFormsAndFields(api, baseUrl) {
+async function getFormsAndFields(basicAuth, api, baseUrl) {
     let formObj = {}
 
     // First get forms in list

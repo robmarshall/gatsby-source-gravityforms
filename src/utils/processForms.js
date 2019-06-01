@@ -50,14 +50,29 @@ const processForms = (
 
     for (const [key, value] of Object.entries(formObj)) {
         if (!ignoreFields.includes(key)) {
-            // Gatsby has saved 'fields' for its own use
-            // so we cannot use this key.
             if (key == 'fields') {
+                // Gatsby has saved 'fields' for its own use
+                // so we cannot use this key.
+
                 // Loop through all fields
                 formObj[key].forEach(function(arr, i) {
                     formObj[key][i] = fixType(arr)
                 })
+
+                // Push to new object
                 newFormObj['formFields'] = formObj[key]
+            } else if (key === 'confirmations') {
+                // Gravity Forms saves confirmations in a strange object
+                // layout. It would be better to clean this up
+
+                let cleanConfirmations = []
+
+                for (const [subKey, subValue] of Object.entries(formObj[key])) {
+                    cleanConfirmations.push(formObj[key][subKey])
+                }
+
+                // Push to new object
+                newFormObj['confirmations'] = cleanConfirmations
             } else {
                 newFormObj[key] = formObj[key]
             }

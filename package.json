@@ -1,7 +1,7 @@
 {
     "name": "gatsby-source-gravityforms",
     "description": "Gatsby source plugin to add WordPress Gravity Forms nodes to your app.",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "author": "Robert Marshall (https://robertmarshall.dev)",
     "dependencies": {
         "@babel/cli": "^7.4.4",
