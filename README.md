@@ -9,6 +9,9 @@ It uses 0Auth 1.0a Authentication for a higher level of security.
 ```js
 # Install the plugin
 yarn add gatsby-source-gravityforms
+
+# Or with NPM
+npm i gatsby-source-gravityforms
 ```
 
 In `gatsby-config.js`:
