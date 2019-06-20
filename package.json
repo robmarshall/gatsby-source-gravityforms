@@ -4,13 +4,8 @@
     "version": "1.0.7",
     "author": "Robert Marshall (https://robertmarshall.dev)",
     "dependencies": {
-        "@babel/cli": "^7.4.4",
-        "@babel/core": "^7.4.5",
-        "@babel/preset-env": "^7.4.5",
         "@babel/runtime": "^7.4.5",
         "axios": ">=0.19.0",
-        "babel-preset-env": "^1.7.0",
-        "babel-preset-gatsby-package": "^0.1.4",
         "chalk": "^2.4.2",
         "javascript-stringify": "^2.0.0",
         "nanoid": "^2.0.3",
@@ -28,6 +23,10 @@
         "url": "https://github.com/robmarshall/gatsby-source-gravityforms.git"
     },
     "devDependencies": {
+        "@babel/cli": "^7.4.4",
+        "@babel/core": "^7.4.5",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-gatsby-package": "^0.1.4",
         "cross-env": "^5.2.0",
         "install-peers": "^1.0.3"
     },
