@@ -94,6 +94,7 @@ A very simple data set can be extracted from GraphQL using the following query:
   allGfForm {
     edges {
       node {
+        formId
         slug
         apiURL
         formFields {

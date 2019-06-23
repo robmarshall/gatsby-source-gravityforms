@@ -24,6 +24,7 @@ const processForms = (
 
     let newFormObj = {
         id: createNodeID(`gravity-form-${formObj.id.toString()}`),
+        formId: formObj.id.toString(),
         internal: {
             contentDigest: createContentDigest(formObj),
             type: 'GF__Form',
