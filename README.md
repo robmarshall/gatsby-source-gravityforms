@@ -98,8 +98,15 @@ A very simple data set can be extracted from GraphQL using the following query:
         slug
         apiURL
         formFields {
+          label
+          labelPlacement
           type
           choices
+          errorMessage
+          inputMaskValue
+          isRequired
+          visibility
+          cssClass
         }
         button {
           type
