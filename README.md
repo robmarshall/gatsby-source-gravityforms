@@ -98,6 +98,7 @@ A very simple data set can be extracted from GraphQL using the following query:
         slug
         apiURL
         formFields {
+          id
           label
           labelPlacement
           type
@@ -109,11 +110,9 @@ A very simple data set can be extracted from GraphQL using the following query:
           cssClass
         }
         button {
-          type
           text
         }
         confirmations {
-          id
           message
         }
       }
