@@ -1,5 +1,4 @@
 const { isBool, isObject } = require('./helpers')
-import { stringify } from 'javascript-stringify'
 
 // If Gatsby keeps returning type errors, even thought you
 // have added the field here, remeber to clear the cache
@@ -14,7 +13,7 @@ const fixType = field => {
                 break
 
             case 'choices':
-                field[key] = stringify(field[key])
+                field[key] = JSON.stringify(field[key])
                 break
 
             case 'enableCalculation':
