@@ -130,3 +130,12 @@ This will return each form set up in Gravity Forms. It will include:
 -   Confirmation info
 
 Currently "choices" in formFields is stringified and will need to be parsed when extracted. This is due to Gatsby seemingly not seeing this many level deep.
+
+## Using the Data
+
+The second step to all this is parsing the data. I am currently working on a
+component that does this.
+
+[gatsby-gravityforms-component](https://github.com/robmarshall/gatsby-gravityforms-component)
+
+It is still a WIP, but feel free to help develop it/use as it is.
