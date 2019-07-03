@@ -85,41 +85,48 @@ It is recommended to create one API key for use with this Source Plugin, set to 
 
 ### Basic Auth
 
-Your backend API may be set up with Basic Auth in place. This is added to the begining of the URL so 0auth1 can also run in tandem. Setup is shown above in Installation.
+Your backend API may be set up with Basic Auth in place. This is added to the beginning of the URL so 0auth1 can also run in tandem. Setup is shown above in Installation.
 
 ## How To Query
 
-A very simple data set can be extracted from GraphQL using the following query:
+A recommended data set can be extracted from GraphQL using the following query:
 
 ```js
 {
-  allGfForm {
-    edges {
-      node {
-        formId
-        slug
-        apiURL
-        formFields {
-          id
-          label
-          labelPlacement
-          type
-          choices
-          errorMessage
-          inputMaskValue
-          isRequired
-          visibility
-          cssClass
+    allGfForm {
+        edges {
+            node {
+                formId
+                slug
+                apiURL
+                descriptionPlacement
+                formFields {
+                    id
+                    label
+                    description
+                    descriptionPlacement
+                    type
+                    choices
+                    content
+                    errorMessage
+                    inputMaskValue
+                    isRequired
+                    visibility
+                    cssClass
+                    placeholder
+                    size
+                    defaultValue
+                    maxLength
+                }
+                button {
+                    text
+                }
+                confirmations {
+                    message
+                }
+            }
         }
-        button {
-          text
-        }
-        confirmations {
-          message
-        }
-      }
     }
-  }
 }
 ```
 
@@ -135,8 +142,7 @@ Currently "choices" in formFields is stringified and will need to be parsed when
 
 ## Using the Data
 
-The second step to all this is parsing the data. I am currently working on a
-component that does this.
+The second step to all this is parsing the data, it needs to be displayed. With a few more steps outlined in the component below, Gravity Forms will be completely connected to your static site.
 
 [gatsby-gravityforms-component](https://github.com/robmarshall/gatsby-gravityforms-component)
 
