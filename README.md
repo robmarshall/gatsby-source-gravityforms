@@ -37,6 +37,8 @@ module.exports = {
 }
 ```
 
+Remember to store secret keys/important data as _environment variables_ and _not_ in client side code.
+
 ### All Options
 
 ```js
