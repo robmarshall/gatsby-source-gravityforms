@@ -5,7 +5,6 @@ const { isBool, isObject } = require('./helpers')
 
 const fixType = field => {
     // Loop through fields details as array
-
     Object.keys(field).forEach(function(key) {
         switch (key) {
             case 'inputMaskIsCustom':
@@ -22,6 +21,10 @@ const fixType = field => {
 
             case 'displayOnly':
                 field[key] = isBool(field[key]) ? field[key] : false
+                break
+
+            case 'maxLength':
+                field[key] = field[key] ? field[key] : 0
                 break
         }
     })
