@@ -53,7 +53,6 @@ async function getFormFields(api, baseUrl, form) {
 
     const apiURL =
         baseUrl + routes.wp + routes.gf + routes.forms + '/' + form.id
-    const apiURLForData = baseUrl + routes.wp + routes.gf
 
     // Make a new signature
     const signature = oauthSignature.generate(
@@ -81,7 +80,7 @@ async function getFormFields(api, baseUrl, form) {
     }
 
     result.data['slug'] = slugify(form.title)
-    result.data['apiURL'] = apiURLForData
+    result.data['apiURL'] = apiURL
 
     return result.data
 }
