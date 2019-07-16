@@ -1,6 +1,6 @@
 const axios = require('axios')
 const chalk = require('chalk')
-const oauthSignature = require('oauth-signature')
+const oauthSignature = require('./oauth-signature')
 
 const { routes } = require('./routes')
 const { isObjEmpty, slugify } = require('./helpers')
