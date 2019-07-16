@@ -4,7 +4,7 @@ const oauthSignature = require('oauth-signature')
 
 const { routes } = require('./routes')
 const { isObjEmpty, slugify } = require('./helpers')
-const { new0AuthParameters } = require('./0AuthParameters')
+const { new0AuthParameters } = require('./oAuthParameters')
 
 const log = console.log
 
