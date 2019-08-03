@@ -7,6 +7,8 @@ function addBasicAuthToURL(basicAuth, url) {
         if (!basicAuth.username || !basicAuth.password) {
             console.log('Basic auth details not included')
         } else {
+            console.log('Using basic auth')
+
             // Check protocol exists
             if (protocol.includes('http')) {
                 // Re-add // back to string. This is needed later for replacement
