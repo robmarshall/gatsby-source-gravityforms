@@ -29,6 +29,17 @@ exports.sourceNodes = async (
 ) => {
     log(chalk.black.bgWhite('Starting Gravity Forms Source plugin'))
 
+    // Run initial checks
+    if (!baseUrl) {
+        log(chalk.bgRed('We could not find a baseUrl'))
+        return
+    }
+
+    if (!api.key || api.secret) {
+        log(chalk.bgRed('You seem to be missing Gravity Forms API details'))
+        return
+    }
+
     // Get a full object of forms and fields
 
     let formsObj = await getFormsAndFields(
