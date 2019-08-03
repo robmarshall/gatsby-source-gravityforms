@@ -31,12 +31,17 @@ exports.sourceNodes = async (
 
     // Run initial checks
     if (!baseUrl) {
-        log(chalk.bgRed('We could not find a baseUrl'))
+        log(chalk.bgRed('We could not find a baseUrl in your gatsby-config.js'))
         return
     }
+    log(`Using: ${baseUrl}`)
 
-    if (!api.key || api.secret) {
-        log(chalk.bgRed('You seem to be missing Gravity Forms API details'))
+    if (!api.key || !api.secret) {
+        log(
+            chalk.bgRed(
+                'You seem to be missing Gravity Forms API details in your gatsby-config.js'
+            )
+        )
         return
     }
 
@@ -52,17 +57,6 @@ exports.sourceNodes = async (
     // need to stop here
     if (formsObj) {
         log(chalk.black.bgWhite('Processing forms'))
-
-        // for (const [key, value] of Object.entries(formsObj)) {
-        //     log(
-        //         processForms(
-        //             createContentDigest,
-        //             createNodeId,
-        //             formsObj[key],
-        //             ignoreFields
-        //         )
-        //     )
-        // }
 
         for (const [key, value] of Object.entries(formsObj)) {
             createNode(
