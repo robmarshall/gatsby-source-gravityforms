@@ -107,7 +107,7 @@ A recommended data set can be extracted from GraphQL using the following query:
                     descriptionPlacement
                     type
                     choices
-                    content
+                    content //remove if not using HTML Content
                     errorMessage
                     inputMaskValue
                     isRequired
