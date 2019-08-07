@@ -147,3 +147,11 @@ The second step to all this is parsing the data, it needs to be displayed. With 
 [gatsby-gravityforms-component](https://github.com/robmarshall/gatsby-gravityforms-component)
 
 It is still a WIP, but feel free to help develop it/use as it is.
+
+## Development / Testing
+
+If you are interested in helping progress the plugin, please do! Although it works, there is still a lot to do.
+
+### Cache
+
+when developing, remeber to clear the cache as you work on the plugin. Gatsby is very effective in making building a site quickly, but it does not help when trying to work out issues. Clear the cache whenever you make a content/query change.
