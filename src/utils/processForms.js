@@ -95,8 +95,6 @@ const processForms = (
         }
     }
 
-    console.log(newFormObj)
-
     return newFormObj
 }
 
