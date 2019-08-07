@@ -1,4 +1,5 @@
 const { isObject } = require('./helpers')
+const formSchema = require('../schema/formSchema')
 const { fixType } = require('./fixType')
 
 /**
@@ -17,11 +18,15 @@ const processForms = (
     formObj,
     ignoreFields
 ) => {
+    // Take the default form schema, and overlay the user data onto it.
+    // This should help reduce the errors that occur on a query that does not exist.
+    // Will force it to return null
+    const mergedSchemaData = { ...formObj, ...formSchema }
+
     // Add the Gatsby internal information.
     // contentDigest tracks any changes and lets Gatsby know if
     // the data needs to be rerendered, or is everything is
     // the same.
-
     let newFormObj = {
         id: createNodeID(`gravity-form-${formObj.id.toString()}`),
         formId: parseInt(formObj.id),
