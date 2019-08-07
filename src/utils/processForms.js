@@ -1,6 +1,7 @@
 const { isObject } = require('./helpers')
-const formSchema = require('../schema/formSchema')
 const { fixType } = require('./fixType')
+const { formSchema } = require('../schema/formSchema')
+const { fieldSchema } = require('../schema/fieldSchema')
 
 /**
  * Take raw Gravity Forms data and turn into usable
@@ -18,20 +19,21 @@ const processForms = (
     formObj,
     ignoreFields
 ) => {
-    // Take the default form schema, and overlay the user data onto it.
+    // Take the default form schema, and overlay the user form data onto it.
+    // This is only the main form data, not individual fields
     // This should help reduce the errors that occur on a query that does not exist.
     // Will force it to return null
-    const mergedSchemaData = { ...formObj, ...formSchema }
+    const mergedSchemaData = { ...formSchema, ...formObj }
 
     // Add the Gatsby internal information.
     // contentDigest tracks any changes and lets Gatsby know if
     // the data needs to be rerendered, or is everything is
     // the same.
     let newFormObj = {
-        id: createNodeID(`gravity-form-${formObj.id.toString()}`),
-        formId: parseInt(formObj.id),
+        id: createNodeID(`gravity-form-${mergedSchemaData.id.toString()}`),
+        formId: parseInt(mergedSchemaData.id),
         internal: {
-            contentDigest: createContentDigest(formObj),
+            contentDigest: createContentDigest(mergedSchemaData),
             type: 'GF__Form',
         },
     }
@@ -40,7 +42,7 @@ const processForms = (
     // all keys are pulled into the new object. No need to
     // process it.
 
-    delete formObj.id
+    delete mergedSchemaData.id
 
     // Ignore fields sets fields to skip. This could be due to
     // sensitive info or not needed on the frontend
@@ -54,36 +56,46 @@ const processForms = (
     // fields, ensure fields are formatted correctly,
     // updated fields that are called protected names (e.g. fields)
 
-    for (const [key, value] of Object.entries(formObj)) {
+    for (const [key, value] of Object.entries(mergedSchemaData)) {
         if (!ignoreFields.includes(key)) {
             if (key == 'fields') {
                 // Gatsby has saved 'fields' for its own use
                 // so we cannot use this key.
 
                 // Loop through all fields
-                formObj[key].forEach(function(arr, i) {
-                    formObj[key][i] = fixType(arr)
+                mergedSchemaData[key].forEach(function(arr, i) {
+                    // Run through the fieldSchema, like we did with the main form data
+                    // to reduce query errors
+                    const mergedFieldSchemaData = { ...fieldSchema, ...arr }
+
+                    // Then fix the data types of certain fields, to make sure
+                    // everything is consistant
+                    mergedSchemaData[key][i] = fixType(mergedFieldSchemaData)
                 })
 
                 // Push to new object
-                newFormObj['formFields'] = formObj[key]
+                newFormObj['formFields'] = mergedSchemaData[key]
             } else if (key === 'confirmations') {
                 // Gravity Forms saves confirmations in a strange object
                 // layout. It would be better to clean this up
 
                 let cleanConfirmations = []
 
-                for (const [subKey, subValue] of Object.entries(formObj[key])) {
-                    cleanConfirmations.push(formObj[key][subKey])
+                for (const [subKey, subValue] of Object.entries(
+                    mergedSchemaData[key]
+                )) {
+                    cleanConfirmations.push(mergedSchemaData[key][subKey])
                 }
 
                 // Push to new object
                 newFormObj['confirmations'] = cleanConfirmations
             } else {
-                newFormObj[key] = formObj[key]
+                newFormObj[key] = mergedSchemaData[key]
             }
         }
     }
+
+    console.log(newFormObj)
 
     return newFormObj
 }
