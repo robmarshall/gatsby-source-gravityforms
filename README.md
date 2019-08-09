@@ -118,6 +118,8 @@ A recommended data set can be extracted from GraphQL using the following query:
                     defaultValue
                     maxLength
                     conditionalLogic
+                    emailConfirmEnabled
+                    enableOtherChoice
                 }
                 button {
                     text
