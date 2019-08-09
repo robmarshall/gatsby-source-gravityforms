@@ -13,6 +13,8 @@ const fixType = field => {
 
             case 'choices':
             case 'conditionalLogic':
+            case 'emailConfirmEnabled':
+            case 'enableOtherChoice':
                 field[key] = JSON.stringify(field[key])
                 break
 
