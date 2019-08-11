@@ -64,13 +64,18 @@ const processForms = (
 
                 // Loop through all fields
                 mergedSchemaData[key].forEach(function(arr, i) {
+                    // If the first form field, add the field schema
+                    // After the first loop this is no longer needed
+
                     // Run through the fieldSchema, like we did with the main form data
                     // to reduce query errors
-                    const mergedFieldSchemaData = { ...fieldSchema, ...arr }
+
+                    const currentField =
+                        i < 1 ? { ...fieldSchema, ...arr } : arr
 
                     // Then fix the data types of certain fields, to make sure
                     // everything is consistant
-                    mergedSchemaData[key][i] = fixType(mergedFieldSchemaData)
+                    mergedSchemaData[key][i] = fixType(currentField)
                 })
 
                 // Push to new object
