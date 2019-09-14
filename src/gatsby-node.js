@@ -2,7 +2,6 @@ const chalk = require('chalk')
 
 const { getFormsAndFields } = require('./utils/axios')
 const { processForms } = require('./utils/processForms')
-const { addBasicAuthToURL } = require('./utils/basicAuthToURL')
 
 const log = console.log
 
@@ -47,11 +46,7 @@ exports.sourceNodes = async (
 
     // Get a full object of forms and fields
 
-    let formsObj = await getFormsAndFields(
-        basicAuth,
-        api,
-        addBasicAuthToURL(basicAuth, baseUrl)
-    )
+    let formsObj = await getFormsAndFields(basicAuth, api, baseUrl)
 
     // Check to make sure we got forms. If issues occured
     // need to stop here

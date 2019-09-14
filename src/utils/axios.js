@@ -9,7 +9,7 @@ const { new0AuthParameters } = require('./oAuthParameters')
 const log = console.log
 
 // Get list of all forms from GF
-async function getForms(api, baseUrl) {
+async function getForms(basicAuth, api, baseUrl) {
     log(chalk.black.bgWhite('Fetching form ids'))
 
     const authParams = new0AuthParameters(api.key)
@@ -32,6 +32,7 @@ async function getForms(api, baseUrl) {
                     ...authParams,
                     oauth_signature: signature,
                 },
+                auth: basicAuth,
             }
         )
     } catch (err) {
@@ -44,7 +45,7 @@ async function getForms(api, baseUrl) {
 }
 
 // Get form fields from GF
-async function getFormFields(api, baseUrl, form) {
+async function getFormFields(basicAuth, api, baseUrl, form) {
     log(chalk.black.bgWhite(`Fetching fields for form ${form.id}`))
 
     let authParams = new0AuthParameters(api.key)
@@ -71,6 +72,7 @@ async function getFormFields(api, baseUrl, form) {
                     ...authParams,
                     oauth_signature: signature,
                 },
+                auth: basicAuth,
             }
         )
     } catch (err) {
@@ -89,7 +91,7 @@ async function getFormsAndFields(basicAuth, api, baseUrl) {
     let formObj = {}
 
     // First get forms in list
-    let allForms = await getForms(api, baseUrl)
+    let allForms = await getForms(basicAuth, api, baseUrl)
 
     // If there are forms to move with
     if (allForms) {
@@ -101,7 +103,12 @@ async function getFormsAndFields(basicAuth, api, baseUrl) {
                 // remove unneeded key
                 delete currentForm.entries
 
-                let form = await getFormFields(api, baseUrl, currentForm)
+                let form = await getFormFields(
+                    basicAuth,
+                    api,
+                    baseUrl,
+                    currentForm
+                )
 
                 formObj['form-' + currentForm.id] = form
             }
@@ -131,7 +138,7 @@ function apiErrorHandler(error) {
     } else {
         // Something happened in setting up the request that triggered an Error
         log(chalk.bgRed('Something happened setting up the request'))
-        log('Error', error.message)
+        log('Error', error)
     }
 }
 
