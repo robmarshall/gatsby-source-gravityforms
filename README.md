@@ -103,6 +103,7 @@ A recommended data set can be extracted from GraphQL using the following query:
                 formFields {
                     id
                     label
+                    labelPlacement
                     description
                     descriptionPlacement
                     type
