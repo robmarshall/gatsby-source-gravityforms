@@ -157,4 +157,4 @@ If you are interested in helping progress the plugin, please do! Although it wor
 
 ### Cache
 
-when developing, remeber to clear the cache as you work on the plugin. Gatsby is very effective in making building a site quickly, but it does not help when trying to work out issues. Clear the cache whenever you make a content/query change.
+when developing, remember to clear the cache as you work on the plugin. Gatsby is very effective in making building a site quickly, but it does not help when trying to work out issues. Clear the cache whenever you make a content/query change.
