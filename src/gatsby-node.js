@@ -11,7 +11,7 @@ exports.sourceNodes = async (
         api,
         include,
         exclude,
-        allowSelfSigned,
+        allowSelfSigned = false,
         basicAuth = {
             username: '',
             password: '',
