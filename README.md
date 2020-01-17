@@ -29,6 +29,7 @@ module.exports = {
                 include: [], // Array of form IDs. Will only import these forms.
                 exclude: [], // Array of form IDs. Will exclude these forms.
                 // Gravity Forms API
+                allowSelfSigned: false
                 api: {
                     key: 'CONSUMER_KEY',
                     secret: 'CONSUMER_SECRET',
@@ -56,6 +57,8 @@ module.exports = {
                     key: 'CONSUMER_KEY',
                     secret: 'CONSUMER_SECRET',
                 },
+                //Set to true to enable selfsigned certs in development mode
+                allowSelfSigned: false
                 // Basic Auth
                 basicAuth: {
                     username: 'USERNAME',

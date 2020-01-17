@@ -8,19 +8,14 @@ const log = console.log
 let activeEnv =
     process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || 'development'
 
-// If we are in dev, ignore the fact that we are using a fake SSL certificate
-if (activeEnv == 'development') {
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-}
-
 exports.sourceNodes = async (
     { actions: { createNode }, createContentDigest, createNodeId },
     {
-        plugins,
         baseUrl,
         api,
         include,
         exclude,
+        allowSelfSigned,
         basicAuth = {
             username: '',
             password: '',
@@ -28,6 +23,11 @@ exports.sourceNodes = async (
         ignoreFields = ['notifications'],
     }
 ) => {
+    // If we are in dev, ignore the fact that we are using a fake SSL certificate
+    if (activeEnv == 'development' && allowSelfSigned) {
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+    }
+
     log(chalk.black.bgWhite('Starting Gravity Forms Source plugin'))
 
     // Run initial checks
