@@ -1,16 +1,12 @@
 const axios = require('axios')
-const chalk = require('chalk')
 const oauthSignature = require('oauth-signature')
-
 const { routes } = require('./routes')
 const { isObjEmpty, slugify } = require('./helpers')
 const { new0AuthParameters } = require('./oAuthParameters')
 
-const log = console.log
-
 // Get list of all forms from GF
 async function getForms(basicAuth, api, baseUrl) {
-    log(chalk.black.bgWhite('Fetching form ids'))
+    reporter.verbose('Fetching form ids')
 
     const authParams = new0AuthParameters(api.key)
 
@@ -46,7 +42,7 @@ async function getForms(basicAuth, api, baseUrl) {
 
 // Get form fields from GF
 async function getFormFields(basicAuth, api, baseUrl, form) {
-    log(chalk.black.bgWhite(`Fetching fields for form ${form.id}`))
+    reporter.verbose(`Fetching fields for form ${form.id}`)
 
     let authParams = new0AuthParameters(api.key)
 
@@ -103,12 +99,12 @@ async function getFormsAndFields(basicAuth, api, baseUrl, formsArgs) {
                 let currentFormId = parseInt(currentForm.id)
 
                 // If include is defined with form IDs, only include these form IDs.
-                if ( formsArgs.include && !formsArgs.include.includes(currentFormId) ) {
+                if (formsArgs.include && !formsArgs.include.includes(currentFormId)) {
                     continue
                 }
 
                 // If exclude is defined with form IDs, don't include these form IDs.
-                if ( formsArgs.exclude && formsArgs.exclude.includes(currentFormId) ) {
+                if (formsArgs.exclude && formsArgs.exclude.includes(currentFormId)) {
                     continue
                 }
 
@@ -119,13 +115,13 @@ async function getFormsAndFields(basicAuth, api, baseUrl, formsArgs) {
                     basicAuth,
                     api,
                     baseUrl,
-                    currentForm
+                    currentForm,
                 )
 
                 formObj['form-' + currentForm.id] = form
             }
         } else {
-            log(chalk.bgRed('We could not find any forms. Have you made any?'))
+            reporter.error('We could not find any forms. Have you made any?')
         }
 
         return formObj
@@ -137,20 +133,30 @@ function apiErrorHandler(error) {
     if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-        log(chalk.bgRed('Request was made, but there was an issue'))
-        log(error.response.data)
-        log(error.response.status)
-        log(error.response.headers)
+        reporter.panicOnBuild(
+            'Request was made, but there was an issue',
+            new Error(`Error ${error.response.status} from GraityForms API`)
+        )
+
+        // log(error.response.data)
+        // log(error.response.status)
+        // log(error.response.headers)
     } else if (error.request) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
         // http.ClientRequest in node.js
-        log(chalk.bgRed('Request was made, but no response'))
-        log(error.request)
+        reporter.panicOnBuild(
+            'Request was made, but no response',
+            new Error('No Repsonse from GraityForms API')
+        )
+        // log(error.request)
     } else {
         // Something happened in setting up the request that triggered an Error
-        log(chalk.bgRed('Something happened setting up the request'))
-        log('Error', error)
+        reporter.panicOnBuild(
+            'Something happened setting up the request',
+            new Error('Unsure of GraityForms API Error')
+        )
+        // log('Error', error)
     }
 }
 
