@@ -26,6 +26,8 @@ module.exports = {
             options: {
                 // Base URL needs to include protocol (http/https)
                 baseUrl: 'SITE_BASE_URL',
+                include: [], // Array of form IDs. Will only import these forms.
+                exclude: [], // Array of form IDs. Will exclude these forms.
                 // Gravity Forms API
                 api: {
                     key: 'CONSUMER_KEY',
