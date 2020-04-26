@@ -87,7 +87,7 @@ async function getFormFields(basicAuth, api, baseUrl, form) {
     return result.data
 }
 
-async function getFormsAndFields(basicAuth, api, baseUrl) {
+async function getFormsAndFields(basicAuth, api, baseUrl, formsArgs) {
     let formObj = {}
 
     // First get forms in list
@@ -99,6 +99,18 @@ async function getFormsAndFields(basicAuth, api, baseUrl) {
             for (const [key, value] of Object.entries(allForms)) {
                 // Clone form object
                 let currentForm = { ...allForms[key] }
+
+                let currentFormId = parseInt(currentForm.id)
+
+                // If include is defined with form IDs, only include these form IDs.
+                if ( formsArgs.include && !formsArgs.include.includes(currentFormId) ) {
+                    continue
+                }
+
+                // If exclude is defined with form IDs, don't include these form IDs.
+                if ( formsArgs.exclude && formsArgs.exclude.includes(currentFormId) ) {
+                    continue
+                }
 
                 // remove unneeded key
                 delete currentForm.entries
