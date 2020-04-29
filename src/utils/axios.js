@@ -135,7 +135,7 @@ function apiErrorHandler(error) {
         // that falls out of the range of 2xx
         reporter.panicOnBuild(
             'Request was made, but there was an issue',
-            new Error(`Error ${error.response.status} from GraityForms API`)
+            new Error(`Error ${error.response.status} from GravityForms API`)
         )
 
         // log(error.response.data)
@@ -147,14 +147,14 @@ function apiErrorHandler(error) {
         // http.ClientRequest in node.js
         reporter.panicOnBuild(
             'Request was made, but no response',
-            new Error('No Repsonse from GraityForms API')
+            new Error('No Repsonse from GravityForms API')
         )
         // log(error.request)
     } else {
         // Something happened in setting up the request that triggered an Error
         reporter.panicOnBuild(
             'Something happened setting up the request',
-            new Error('Unsure of GraityForms API Error')
+            new Error('Unsure of GravityForms API Error')
         )
         // log('Error', error)
     }

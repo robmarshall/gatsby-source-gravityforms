@@ -57,7 +57,7 @@ module.exports = {
                     key: 'CONSUMER_KEY',
                     secret: 'CONSUMER_SECRET',
                 },
-                //Set to true to enable selfsigned certs in development mode
+                // Set to true to enable selfsigned certs in development mode
                 allowSelfSigned: false
                 // Basic Auth
                 basicAuth: {
