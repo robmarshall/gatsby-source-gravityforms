@@ -12,7 +12,6 @@ const { fieldSchema } = require('../schema/fieldSchema')
  * @param  array        ignoreFields        Array of top level fields to ignore
  * @return object                           Processed form data
  */
-
 const processForms = (
     createContentDigest,
     createNodeID,
@@ -41,7 +40,6 @@ const processForms = (
     // Delete the original raw object id, as in the loop below
     // all keys are pulled into the new object. No need to
     // process it.
-
     delete mergedSchemaData.id
 
     // Ignore fields sets fields to skip. This could be due to
@@ -49,13 +47,11 @@ const processForms = (
 
     // TODO: Use an object instead of an array. But array was
     // easier for now.
-
     ignoreFields = Array.isArray(ignoreFields) ? ignoreFields : null
 
     // Loop through the form fields. Check we want to show all
     // fields, ensure fields are formatted correctly,
     // updated fields that are called protected names (e.g. fields)
-
     for (const [key, value] of Object.entries(mergedSchemaData)) {
         if (!ignoreFields.includes(key)) {
             if (key == 'fields') {

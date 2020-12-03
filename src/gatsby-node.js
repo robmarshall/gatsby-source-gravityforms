@@ -20,6 +20,7 @@ exports.sourceNodes = async (
     }
 ) => {
     global.reporter = reporter
+
     // If we are in dev, ignore the fact that we are using a fake SSL certificate.
     if (activeEnv == 'development' && allowSelfSigned) {
         process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
