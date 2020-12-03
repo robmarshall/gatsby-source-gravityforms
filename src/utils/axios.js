@@ -1,8 +1,7 @@
 const axios = require('axios')
 const oauthSignature = require('oauth-signature')
 const { routes } = require('./routes')
-const { isObjEmpty, slugify } = require('./helpers')
-const { new0AuthParameters } = require('./oAuthParameters')
+const { isObjEmpty, slugify, new0AuthParameters } = require('./helpers')
 
 // Get list of all forms from GF
 async function getForms(basicAuth, api, baseUrl) {
@@ -99,12 +98,18 @@ async function getFormsAndFields(basicAuth, api, baseUrl, formsArgs) {
                 let currentFormId = parseInt(currentForm.id)
 
                 // If include is defined with form IDs, only include these form IDs.
-                if (formsArgs.include && !formsArgs.include.includes(currentFormId)) {
+                if (
+                    formsArgs.include &&
+                    !formsArgs.include.includes(currentFormId)
+                ) {
                     continue
                 }
 
                 // If exclude is defined with form IDs, don't include these form IDs.
-                if (formsArgs.exclude && formsArgs.exclude.includes(currentFormId)) {
+                if (
+                    formsArgs.exclude &&
+                    formsArgs.exclude.includes(currentFormId)
+                ) {
                     continue
                 }
 
@@ -115,7 +120,7 @@ async function getFormsAndFields(basicAuth, api, baseUrl, formsArgs) {
                     basicAuth,
                     api,
                     baseUrl,
-                    currentForm,
+                    currentForm
                 )
 
                 formObj['form-' + currentForm.id] = form
