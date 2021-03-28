@@ -10,5 +10,6 @@ export const formSchema = {
     },
     notifications: '',
     confirmations: '',
+    pagination: '',
     apiURL: '',
 }
