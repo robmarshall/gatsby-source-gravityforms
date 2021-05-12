@@ -41,7 +41,7 @@ exports.sourceNodes = async (
     if (!api.key || !api.secret) {
         reporter.panic(
             'You seem to be missing Gravity Forms API details in your gatsby-config.js',
-            new Error('Misisng api keys in config')
+            new Error('Missing api keys in config')
         )
         return
     }
