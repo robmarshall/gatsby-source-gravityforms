@@ -1,4 +1,4 @@
-const { nanoid } = require('nanoid')
+const { createHmac } = require('crypto')
 
 /**
  * Destructure array and turn to string.
@@ -49,6 +49,11 @@ function isBool(val) {
     return false
 }
 
+function createHash() {
+    const hmac = createHmac('sha1', Math.random().toString(36).substring(7));
+    return hmac.update(Buffer.from(Math.random().toString(36).substring(7), 'utf-8')).digest('hex');
+}
+
 /**
  * A function to create 0Auth parameters. Ensuring timestamp and
  * nonce are aways as new as possible.
@@ -61,7 +66,7 @@ function new0AuthParameters(consumerKey) {
         oauth_timestamp: getCurrentTimestamp(),
         oauth_signature_method: 'HMAC-SHA1',
         oauth_version: '1.0',
-        oauth_nonce: nanoid(11),
+        oauth_nonce: createHash(),
     }
 }
 
