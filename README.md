@@ -4,6 +4,11 @@ This plugin connects to a WordPress Gravity Forms install. It finds all active f
 
 It uses 0Auth 1.0a Authentication for a higher level of security.
 
+## No Long Maintained. Outdated Package
+I am no longer maintaining this package. A cleaner way of handling Gravity Forms is over at this repo: https://github.com/robmarshall/gatsby-plugin-gravity-forms
+
+It handles both the sourcing, and rendering of a Gravity Form.
+
 ## Installation
 
 ```js
